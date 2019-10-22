@@ -1,0 +1,153 @@
+﻿@model Mini_Project.Models.Account
+
+<script>
+function confirmTerminate(){
+if (confirm("Are you sure you would like to delete your account?")){
+    document.location.href = '@Url.Action("Terminate")'
+    }
+    else {
+    return false;
+    }
+}
+</script>
+
+@*@model IEnumerable<Mini_Project.Models.Account>
+
+    @{
+        ViewBag.Title = "Index";
+    }
+
+    <h2>Index</h2>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Birthday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaritalStatus)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Birthday)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaritalStatus)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>*@
+
+<div class="custom-checkphonenumber" style="margin-bottom: 230px;">
+    <div class="form-horizontal">
+
+        <div class="custom-row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <span class="control-label custom-reg">USER NAME</span>
+                    <p class="form-control custom-form-reg" style="width:85%;">@Model.UserName</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <span class="control-label custom-reg">PHONE NUMBER</span>
+                    <p class="form-control custom-form-reg" style="width:85%;">@Model.PhoneNumber</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="custom-row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <span class="control-label custom-reg">FIRST NAME</span>
+                    <p class="form-control custom-form-reg" style="width:85%;">@Model.FirstName</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <span class="control-label custom-reg">LAST NAME</span>
+                    <p class="form-control custom-form-reg" style="width:85%;">@Model.LastName</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="custom-row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <span class="control-label custom-reg">DATE OF BIRTH</span>
+                    <p class="form-control custom-form-reg" style="width:85%;">@String.Format("{0:MM dd yyyy}", Model.Birthday)</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <span class="control-label custom-reg">GENDER</span>
+                    <p class="form-control custom-form-reg" style="width:85%;">@Model.Gender</p>
+                </div>
+            </div>
+        </div>
+
+
+        <p>@Html.ActionLink("Edit your account", "Edit", new { id = Model.Id }) </p>
+
+        <p>@Html.ActionLink("Change your password", "ChangePassword", "Account")</p>
+
+
+        <input type="button" value="Delete" class="form-submit" onclick="return confirmTerminate()" style="width:20%; padding: 10px; background-image: linear-gradient(to left, #C70039 ,#900C3F)" />
+
+        @*<input type="button" value="Back" class="form-submit" onclick="document.location.href = '@Url.Action("Index", "Home")'" style="width: 20%; margin-left:10px; padding: 10px;" />*@
+    </div>
+    </div>
+
+
+
+
+        @*<input type="button" value="Delete" class="btn btn-default" onclick="return confirm('Are you sure you would like to delete your account?'), document.location.href = '@Url.Action("Manage")'" />*@
+

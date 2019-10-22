@@ -1,0 +1,100 @@
+﻿@model Mini_Project.Models.Account
+
+
+@{
+    ViewBag.Title = "CheckPhoneNumber";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="custom-checkphonenumber">
+        <div class="form-horizontal">
+
+            <h2 class="form-title" style="color: #ffffff; font-weight: 300; margin-bottom: 28px;">Forgotten Username?</h2>
+            
+
+            <h4 style="text-align: justify; font-size: 14px; color: #8e9297; margin-bottom: 30px;">If you have forgotten your username, simply enter your mobile number below and we will send you a One-Time-Password to your mobile phone for verification. Once verified, we will send your username to your mobile phone. </h4>
+
+
+            <div class="form-group" style="padding-left:15px; overflow: unset;">
+                <span class="control-label custom-reg">Phone Number</span>
+                <div class="row-md-10">
+                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control custom-form-control", @style = "padding-right:215px;" } })
+                    <span id="valid-msg" class="hide">✓ Valid</span>
+                    <span id="error-msg" class="hide"></span>
+                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group" style="text-align: center; padding-top: 20px;">
+                <input type="submit" name="submit" id="submit" class="form-submit" value="Send Verification" />
+            </div>
+
+            <div>
+                @Html.ActionLink("Forgot your password?", "ResetPassword", "Account")
+            </div>
+
+
+            <div>
+                @Html.ActionLink("Back to Login", "LogIn", "Account")
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/node_modules/intl-tel-input/build/js/intlTelInput.min.js?1567329555819"></script>
+    <script src="~/node_modules/intl-tel-input/examples/js/prism.js"></script>
+    <script>
+        var input = document.querySelector("#PhoneNumber"),
+            errorMsg = document.querySelector("#error-msg"),
+            validMsg = document.querySelector("#valid-msg");
+
+        // here, the index maps to the error code returned from getValidationError - see readme
+        var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+        // initialise plugin
+        var iti = window.intlTelInput(input, {
+            initialCountry: 'sg',
+            nationalMode: true,
+            hiddenInput: "PhoneNumber_full",
+            utilsScript: "../../build/js/utils.js?1567329555819"
+        });
+
+        var reset = function () {
+            input.classList.remove("error");
+            errorMsg.innerHTML = "";
+            errorMsg.classList.add("hide");
+            validMsg.classList.add("hide");
+        };
+
+        // on blur: validate
+        input.addEventListener('blur', function () {
+            reset();
+            if (input.value.trim()) {
+                if (iti.isValidNumber()) {
+                    validMsg.classList.remove("hide");
+                } else {
+                    input.classList.add("error");
+                    var errorCode = iti.getValidationError();
+                    errorMsg.innerHTML = errorMap[errorCode];
+                    errorMsg.classList.remove("hide");
+                }
+            }
+        });
+
+        // on keyup / change flag: reset
+        input.addEventListener('change', reset);
+        input.addEventListener('keyup', reset);
+    </script>
+    <script class="iti-load-utils" async src="~/node_modules/intl-tel-input/build/js/utils.js?1567329555819"></script>
+}

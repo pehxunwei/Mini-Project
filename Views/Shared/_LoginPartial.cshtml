@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "LoggedIn";
+}
+
+@if (Session["Id"] != null)
+{
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <ul>
+            <li>
+                <a href="#" class="custom-li">Hello @Session["Firstname"]!</a>
+                <ul>
+                    <li>@Html.ActionLink("Settings", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage", @class = "custom-li" })</li>
+                    <li>
+                        @Html.ActionLink("Log Out", "LogOut", "Account", routeValues: null, htmlAttributes: new { title = "Manage", @class = "custom-li" })
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    }
+}
+
+else
+{
+    <ul>
+            <li>@Html.ActionLink("Login", "LogIn", "Account", routeValues: null,  htmlAttributes: new { @class = "custom-login" })</li>
+        </ul>
+}
+
+

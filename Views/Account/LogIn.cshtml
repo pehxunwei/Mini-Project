@@ -1,0 +1,87 @@
+﻿@model Mini_Project.Models.Account
+
+@{
+    ViewBag.Title = "LogIn";
+}
+
+@*<h2>LogIn</h2>*@
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="custom-form-horizontal">
+        <h2 style="padding-top:20px; color: #ffffff; font-weight: 300">LOGIN</h2>
+        
+        
+
+    <div class="custom-form-group">
+        <span class="control-label custom-reg">USER NAME</span>
+        <div class="row-md-10">
+            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control custom-form-control", @placeholder = "xyz@gmail.com" } })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            <div>
+                @Html.ActionLink("Forgot your username?", "CheckPhoneNumber", "Account")
+            </div>
+        </div>
+    </div>
+
+   
+    <div class="custom-form-group">
+        <span class="control-label custom-reg">PASSWORD</span>
+        <div class="row-md-10">
+            <i class="fa fa-eye" id="eye" onclick="myFunction()" style="margin-top:255px; margin-left:320px"></i>
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control custom-form-control" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            @Html.ValidationSummary(true, "", new { @class = "text-danger", @style = "margin-left:-25px; margin-bottom:-18px" })
+            <div>
+                @Html.ActionLink("Forgot your password?", "ResetPassword", "Account")
+            </div>
+        </div>
+    </div>
+
+
+        <div class="form-group" style="text-align: center; padding-top: 30px;">
+            <input type="submit" name="submit" id="submit" class="form-submit" value="Login"/>
+        </div>
+    
+
+        <div class="loginhere">
+            <text>Need an account?</text> @Html.ActionLink("Register", "Register", "Account")
+        </div>
+    <br />
+    
+ </div>
+    <br />
+}
+
+@*<div>
+        <text>Need an account?</text> @Html.ActionLink("Register", "Register", "Account")
+    </div>
+    <br />
+    <div>
+        @Html.ActionLink("Forgot your username?", "CheckPhoneNumber", "Account")
+    </div>
+    <div>
+        @Html.ActionLink("Forgot your password?", "ResetPassword", "Account")
+    </div>
+    <br />*@
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+    function myFunction() {
+        var x = document.getElementById("Password");
+        var icon = document.querySelector(".fa")
+        if (x.type === "password") {
+            x.type = "text";
+            icon.style.color = "#74ebd5";
+        } else {
+            x.type = "password";
+            icon.style.color = "#9face6";
+        }
+    }
+</script>
+}

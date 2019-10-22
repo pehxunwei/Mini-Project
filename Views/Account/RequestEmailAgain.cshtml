@@ -1,0 +1,25 @@
+﻿@model Mini_Project.Models.Account
+
+@{
+    ViewBag.Title = "RequestEmailAgain";
+}
+
+    <div class="custom-checkphonenumber" style="margin-bottom: 364px;">
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div h4 style="text-align: justify; font-size: 16px; color: #8e9297; margin-bottom: 30px;">An email verification has been sent! Please verify your email account by clicking the link that is sent to your email account.</div>
+
+            <div>
+                @Html.ActionLink("Click here to resend email", "RequestEmailAgain", "Account", routeValues: null, htmlAttributes: new { @class = "custom-OTP" })
+            </div>
+            <div>
+                @Html.ActionLink("Back to Login", "LogIn", "Account")
+            </div>
+
+            <div>@Html.ActionLink("Click here to return to Home", "Index", "Home")</div>
+
+
+        </div>
+    </div>

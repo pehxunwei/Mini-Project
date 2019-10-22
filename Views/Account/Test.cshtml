@@ -1,0 +1,62 @@
+﻿@model Mini_Project.Models.Account
+
+@{
+    ViewBag.Title = "Test";
+}
+
+<h2>Test</h2>
+
+<form>
+    <label>Telephone Input</label><br />
+    <input id="phone" type="tel">
+    <span id="valid-msg" class="hide">✓ Valid</span>
+    <span id="error-msg" class="hide"></span>
+</form>
+
+
+
+<script src="~/node_modules/intl-tel-input/build/js/intlTelInput.min.js?1567329555819"></script>
+<script src="~/node_modules/intl-tel-input/examples/js/prism.js"></script>
+<script>
+    var input = document.querySelector("#phone"),
+        errorMsg = document.querySelector("#error-msg"),
+        validMsg = document.querySelector("#valid-msg");
+
+    // here, the index maps to the error code returned from getValidationError - see readme
+    var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+    // initialise plugin
+    var iti = window.intlTelInput(input, {
+        initialCountry: 'sg',
+        nationalMode: true,
+        utilsScript: "../../build/js/utils.js?1567329555819"
+    });
+
+    var reset = function () {
+        input.classList.remove("error");
+        errorMsg.innerHTML = "";
+        errorMsg.classList.add("hide");
+        validMsg.classList.add("hide");
+    };
+
+    // on blur: validate
+    input.addEventListener('blur', function () {
+        reset();
+        if (input.value.trim()) {
+            if (iti.isValidNumber()) {
+                validMsg.classList.remove("hide");
+            } else {
+                input.classList.add("error");
+                var errorCode = iti.getValidationError();
+                errorMsg.innerHTML = errorMap[errorCode];
+                errorMsg.classList.remove("hide");
+            }
+        }
+    });
+
+    // on keyup / change flag: reset
+    input.addEventListener('change', reset);
+    input.addEventListener('keyup', reset);
+</script>
+<script class="iti-load-utils" async src="~/node_modules/intl-tel-input/build/js/utils.js?1567329555819"></script>
+
